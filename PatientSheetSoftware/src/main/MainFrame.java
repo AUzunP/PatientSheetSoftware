@@ -8,6 +8,7 @@ import javax.swing.JFrame;
 
 import patient.DayNote;
 import patient.Patient;
+import weekSheet.WeekSheet;
 
 public class MainFrame extends JFrame{
 
@@ -51,6 +52,9 @@ public class MainFrame extends JFrame{
 		
 		testPatient.printCodes();
 		testPatient.printDiagnoses();
+		
+		WeekSheet.weekNumber(4, 2021);
+		WeekSheet.getCurrentWeek();
 		
 	}
 	

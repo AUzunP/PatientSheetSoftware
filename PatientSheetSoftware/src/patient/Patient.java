@@ -20,7 +20,6 @@ public class Patient {
 
 	// Uses override toString method to return list of notes in desired format
 	public ArrayList<DayNote> getNotes() {
-
 		return this.notes;
 
 	}
