@@ -8,10 +8,13 @@ import javax.swing.JFrame;
 
 import patient.DayNote;
 import patient.Patient;
+import weekSheet.WeekScreen;
 import weekSheet.WeekSheet;
 
 public class MainFrame extends JFrame{
 
+	WeekScreen weekScreen;
+	
 	public MainFrame() {
 		
 		super("Patient Sheet Software");
@@ -22,8 +25,13 @@ public class MainFrame extends JFrame{
 		setMinimumSize(new Dimension(1200, 600));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
+		this.revalidate();
 		this.pack();
+		this.repaint();
 		this.setLocationRelativeTo(null);
+		
+		WeekScreen weekScreen = new WeekScreen();
+		add(weekScreen, BorderLayout.CENTER);
 		
 		setVisible(true);
 		
