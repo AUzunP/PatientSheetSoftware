@@ -22,7 +22,8 @@ public class MainFrame extends JFrame{
 		setLayout(new BorderLayout());
 		
 		// (x, y)
-		setMinimumSize(new Dimension(1200, 600));
+		setMinimumSize(new Dimension(1000, 600));
+		setPreferredSize(new Dimension(1000, 1000));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		this.revalidate();
@@ -61,7 +62,7 @@ public class MainFrame extends JFrame{
 		testPatient.printCodes();
 		testPatient.printDiagnoses();
 		
-		WeekSheet.weekNumber(4, 2021);
+		WeekSheet.weekNumber(4, 2020);
 		WeekSheet.getCurrentWeek();
 		
 	}

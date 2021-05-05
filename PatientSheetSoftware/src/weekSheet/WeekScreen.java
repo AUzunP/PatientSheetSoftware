@@ -1,112 +1,192 @@
 package weekSheet;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 
+import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 
 public class WeekScreen extends JPanel {
-	
+
 	WeekTopPanel topPanel;
+	WeekMainPanel mainPanel;
 
-	public WeekScreen() { 
-		
+	public WeekScreen() {
+
 		setLayout(new BorderLayout());
-		//setBackground(Color.BLUE);
 
-		WeekTopPanel topPanel = new WeekTopPanel();
+		topPanel = new WeekTopPanel();
+		mainPanel = new WeekMainPanel();
 		
 		add(topPanel, BorderLayout.NORTH);
+		add(mainPanel, BorderLayout.CENTER);
+
+	}
+
+	public class WeekMainPanel extends JPanel {
+		
+		PatientPanel patientPanel;
+		
+		WeekMainPanel() {
+			
+			//make gridlayout +1 grid each time you add patientpanel
+			setLayout(new BorderLayout());
+
+			addNewPatientPanel();
+			
+		}
+		
+		private void addNewPatientPanel() {
+			
+			patientPanel = new PatientPanel();
+			add(patientPanel, BorderLayout.CENTER);
+			
+		}
 		
 	}
 	
-	public class WeekTopPanel extends JPanel{
-		
+	public class WeekTopPanel extends JPanel {
+
 		JLabel monday, tuesday, wednesday, thursday, friday, saturday, sunday;
 		JLabel patientName;
+		JLabel diagnoses;
+		PatientPanel patientPanel, patientPanel2;
 
 		WeekTopPanel() {
+
+			this.setBackground(Color.RED);
 			
 			setLayout(new GridBagLayout());
+
+			diagnoses = new JLabel("Diagnoses");
+			patientName = new JLabel("Patient Name");
 			
-			JLabel monday = new JLabel("Monday");
-			JLabel tuesday = new JLabel("Tuesday");
-			JLabel wednesday = new JLabel("Wednesday");
-			JLabel thursday = new JLabel("Thursday");
-			JLabel friday = new JLabel("Friday");
-			JLabel saturday = new JLabel("Saturday");
-			JLabel sunday = new JLabel("Sunday");
+			monday = new JLabel("MON", SwingConstants.CENTER);
+			tuesday = new JLabel("TUE", SwingConstants.CENTER);
+			wednesday = new JLabel("WED", SwingConstants.CENTER);
+			thursday = new JLabel("THU", SwingConstants.CENTER);
+			friday = new JLabel("FRI", SwingConstants.CENTER);
+			saturday = new JLabel("SAT", SwingConstants.CENTER);
+			sunday = new JLabel("SUN", SwingConstants.CENTER);
+
+			diagnoses.setPreferredSize(new Dimension(200, 25));
+			patientName.setPreferredSize(new Dimension(200, 25));
 			
-			JLabel patientName = new JLabel("Patient Name");
+			monday.setPreferredSize(new Dimension(50, 25));
+			tuesday.setPreferredSize(new Dimension(50, 25));
+			wednesday.setPreferredSize(new Dimension(50, 25));
+			thursday.setPreferredSize(new Dimension(50, 25));
+			friday.setPreferredSize(new Dimension(50, 25));
+			saturday.setPreferredSize(new Dimension(50, 25));
+			sunday.setPreferredSize(new Dimension(50, 25));
+			
+			patientPanel = new PatientPanel();
+			patientPanel2 = new PatientPanel();
+			
+			diagnoses.setBorder(BorderFactory.createEtchedBorder(1));		
+			patientName.setBorder(BorderFactory.createEtchedBorder(1));
+			
+			monday.setBorder(BorderFactory.createEtchedBorder(1));
+			tuesday.setBorder(BorderFactory.createEtchedBorder(1));
+			wednesday.setBorder(BorderFactory.createEtchedBorder(1));
+			thursday.setBorder(BorderFactory.createEtchedBorder(1));
+			friday.setBorder(BorderFactory.createEtchedBorder(1));
+			saturday.setBorder(BorderFactory.createEtchedBorder(1));
+			sunday.setBorder(BorderFactory.createEtchedBorder(1));
+			
+			layoutTopPanel();
+			
+		}
+
+		private void layoutTopPanel() {
 			
 			GridBagConstraints c = new GridBagConstraints();
-			
-			//c.anchor = GridBagConstraints.FIRST_LINE_END;
-			c.weightx = 0.5;
+
+			c.fill = GridBagConstraints.HORIZONTAL;
+			c.weightx = 0.1;
 			c.gridwidth = 1;
 			c.gridheight = 1;
 			c.gridx = 0;
 			c.gridy = 0;
 			
 			add(patientName, c);
-			
-			c.weightx = 0.5;
+
+			c.weightx = 0.05;
 			c.gridwidth = 1;
 			c.gridheight = 1;
 			c.gridx = 1;
 			c.gridy = 0;
-			
+
 			add(monday, c);
-			
-			c.weightx = 0.5;
+
+			c.weightx = 0.05;
 			c.gridwidth = 1;
 			c.gridheight = 1;
 			c.gridx = 2;
 			c.gridy = 0;
-			
+
 			add(tuesday, c);
-			
-			c.weightx = 0.5;
+
+			c.weightx = 0.05;
 			c.gridwidth = 1;
 			c.gridheight = 1;
 			c.gridx = 3;
 			c.gridy = 0;
-			
+
 			add(wednesday, c);
-			
-			c.weightx = 0.5;
+
+			c.weightx = 0.05;
 			c.gridwidth = 1;
 			c.gridheight = 1;
 			c.gridx = 4;
 			c.gridy = 0;
-			
+
 			add(thursday, c);
-			
-			c.weightx = 0.5;
+
+			c.weightx = 0.05;
 			c.gridwidth = 1;
 			c.gridheight = 1;
 			c.gridx = 5;
 			c.gridy = 0;
-			
+
 			add(friday, c);
-			
-			c.weightx = 0.5;
+
+			c.weightx = 0.05;
 			c.gridwidth = 1;
 			c.gridheight = 1;
 			c.gridx = 6;
 			c.gridy = 0;
-			
+
 			add(saturday, c);
-			
-			c.weightx = 0.5;
+
+			c.weightx = 0.05;
 			c.gridwidth = 1;
 			c.gridheight = 1;
 			c.gridx = 7;
 			c.gridy = 0;
-			
+
 			add(sunday, c);
+
+			c.weightx = 0.3;
+			c.gridwidth = 1;
+			c.gridheight = 1;
+			c.gridx = 8;
+			c.gridy = 0;
+			
+			add(diagnoses, c);
+
+			//c.weightx = 1;
+			c.gridwidth = 9;
+			c.gridheight = 1;
+			c.gridx = 0;
+			c.gridy = 1;
+			
+			add(patientPanel, c);
 			
 		}
 		
