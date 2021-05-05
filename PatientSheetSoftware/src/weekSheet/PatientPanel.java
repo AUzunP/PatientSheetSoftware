@@ -147,8 +147,7 @@ public class PatientPanel extends JPanel{
 		c.gridx = 8;
 		c.gridy = 0;
 		
-		add(diagnoses, c);		
-		
+		add(diagnoses, c);			
 	}
 	
 }

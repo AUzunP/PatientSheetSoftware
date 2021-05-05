@@ -36,7 +36,6 @@ public class WeekScreen extends JPanel {
 			
 			//make gridlayout +1 grid each time you add patientpanel
 			setLayout(new BorderLayout());
-
 			addNewPatientPanel();
 			
 		}
