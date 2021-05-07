@@ -30,20 +30,47 @@ public class WeekScreen extends JPanel {
 
 	public class WeekMainPanel extends JPanel {
 		
-		PatientPanel patientPanel;
+		private PatientPanel patientPanel;
+		private JLabel tempLabel;
 		
 		WeekMainPanel() {
 			
-			//make gridlayout +1 grid each time you add patientpanel
-			setLayout(new BorderLayout());
-			addNewPatientPanel();
+			setLayout(new GridBagLayout());
+			this.setBackground(Color.BLUE);
+			
+			GridBagConstraints c = new GridBagConstraints();
+			
+			patientPanel = new PatientPanel();
+			tempLabel = new JLabel();
+			
+			c.fill = GridBagConstraints.BOTH;
+			c.weightx = 1;
+			c.gridx = 0;
+			c.gridy = 0;
+			
+			addNewPatientPanel(c);
+			addNewPatientPanel(c);
+			addNewPatientPanel(c);
 			
 		}
 		
-		private void addNewPatientPanel() {
+		private void addNewPatientPanel(GridBagConstraints c) {
 			
+			// tempLabel is just here to fill up bottom space so patient labels
+			// are added from top to bottom
+			
+			// Remove and then add back at the end
+			remove(tempLabel);
+			
+			// Set weighty back to default
+			c.weighty = 0;
 			patientPanel = new PatientPanel();
-			add(patientPanel, BorderLayout.CENTER);
+			add(patientPanel, c);
+			c.gridy++;
+			
+			// Set weighty to 1 so that it fills the remaining space
+			c.weighty = 1;
+			add(tempLabel, c);
 			
 		}
 		
@@ -84,8 +111,8 @@ public class WeekScreen extends JPanel {
 			saturday.setPreferredSize(new Dimension(50, 25));
 			sunday.setPreferredSize(new Dimension(50, 25));
 			
-			patientPanel = new PatientPanel();
-			patientPanel2 = new PatientPanel();
+//			patientPanel = new PatientPanel();
+//			patientPanel2 = new PatientPanel();
 			
 			diagnoses.setBorder(BorderFactory.createEtchedBorder(1));		
 			patientName.setBorder(BorderFactory.createEtchedBorder(1));
@@ -180,12 +207,12 @@ public class WeekScreen extends JPanel {
 			add(diagnoses, c);
 
 			//c.weightx = 1;
-			c.gridwidth = 9;
-			c.gridheight = 1;
-			c.gridx = 0;
-			c.gridy = 1;
-			
-			add(patientPanel, c);
+//			c.gridwidth = 9;
+//			c.gridheight = 1;
+//			c.gridx = 0;
+//			c.gridy = 1;
+//			
+//			add(patientPanel, c);
 			
 		}
 		
