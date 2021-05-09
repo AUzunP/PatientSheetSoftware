@@ -9,6 +9,8 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import customComponents.CustomButton;
+
 public class PatientPanel extends JPanel{
 
 	private JTextField mondayNote;
@@ -21,13 +23,13 @@ public class PatientPanel extends JPanel{
 
 	private JTextField patientName;
 	
-	private JTextField diagnoses;
+	private CustomButton diagnoses;
 	
 	public PatientPanel() {
 		
 		setLayout(new GridBagLayout());
 		
-		diagnoses = new JTextField();
+		diagnoses = new CustomButton();
 		patientName = new JTextField();
 		
 		mondayNote = new JTextField();

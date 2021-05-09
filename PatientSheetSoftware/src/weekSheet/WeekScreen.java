@@ -1,20 +1,27 @@
 package weekSheet;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.ScrollPaneConstants;
 import javax.swing.SwingConstants;
+
+import customComponents.CustomButton;
 
 public class WeekScreen extends JPanel {
 
-	WeekTopPanel topPanel;
-	WeekMainPanel mainPanel;
+	private JScrollPane scrollPane;
+	private WeekTopPanel topPanel;
+	private WeekMainPanel mainPanel;
+	private WeekBottomPanel bottomPanel;
 
 	public WeekScreen() {
 
@@ -22,76 +29,131 @@ public class WeekScreen extends JPanel {
 
 		topPanel = new WeekTopPanel();
 		mainPanel = new WeekMainPanel();
+		bottomPanel = new WeekBottomPanel();
+
+		bottomPanel.addNewPatientButton.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				mainPanel.addNewPatientPanel(mainPanel.c);
+				System.out.println("add new patient button");
+			}
+
+		});
+
+		bottomPanel.tempButton.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				System.out.println("temp button");
+			}
+
+		});
 		
+		// TODO Add functionality here
+		bottomPanel.removeLastPatientButton.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				System.out.println("remove last patient button");
+			}
+			
+		});
+
+		// Wrap main panel in scroll pane and add it instead of adding main panel
+		scrollPane = new JScrollPane(mainPanel, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,
+				ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+
 		add(topPanel, BorderLayout.NORTH);
-		add(mainPanel, BorderLayout.CENTER);
+		add(scrollPane, BorderLayout.CENTER);
+		add(bottomPanel, BorderLayout.SOUTH);
 
 	}
 
-	public class WeekMainPanel extends JPanel {
-		
+	private class WeekBottomPanel extends JPanel {
+
+		private CustomButton addNewPatientButton;
+		private CustomButton removeLastPatientButton;
+		private CustomButton tempButton;
+
+		WeekBottomPanel() {
+
+			setPreferredSize(new Dimension(100, 25));
+			setLayout(new BorderLayout());
+
+			tempButton = new CustomButton();
+			addNewPatientButton = new CustomButton();
+			removeLastPatientButton = new CustomButton();
+
+			add(tempButton, BorderLayout.CENTER);
+			add(addNewPatientButton, BorderLayout.WEST);
+			add(removeLastPatientButton, BorderLayout.EAST);
+
+		}
+
+	}
+
+	private class WeekMainPanel extends JPanel {
+
 		private PatientPanel patientPanel;
 		private JLabel tempLabel;
-		
+		private GridBagConstraints c;
+
 		WeekMainPanel() {
-			
+
 			setLayout(new GridBagLayout());
-			this.setBackground(Color.BLUE);
-			
-			GridBagConstraints c = new GridBagConstraints();
-			
+
+			c = new GridBagConstraints();
+
 			patientPanel = new PatientPanel();
 			tempLabel = new JLabel();
-			
+
 			c.fill = GridBagConstraints.BOTH;
 			c.weightx = 1;
 			c.gridx = 0;
 			c.gridy = 0;
-			
-			addNewPatientPanel(c);
-			addNewPatientPanel(c);
-			addNewPatientPanel(c);
-			
+
 		}
-		
+
 		private void addNewPatientPanel(GridBagConstraints c) {
-			
+
 			// tempLabel is just here to fill up bottom space so patient labels
 			// are added from top to bottom
-			
+
 			// Remove and then add back at the end
 			remove(tempLabel);
-			
+
 			// Set weighty back to default
 			c.weighty = 0;
 			patientPanel = new PatientPanel();
 			add(patientPanel, c);
 			c.gridy++;
-			
+
 			// Set weighty to 1 so that it fills the remaining space
 			c.weighty = 1;
 			add(tempLabel, c);
-			
-		}
-		
-	}
-	
-	public class WeekTopPanel extends JPanel {
 
-		JLabel monday, tuesday, wednesday, thursday, friday, saturday, sunday;
-		JLabel patientName;
-		JLabel diagnoses;
-		PatientPanel patientPanel, patientPanel2;
+			repaint();
+			revalidate();
+
+		}
+
+	}
+
+	private class WeekTopPanel extends JPanel {
+
+		private JLabel monday, tuesday, wednesday, thursday, friday, saturday, sunday;
+		private JLabel patientName;
+		private JLabel diagnoses;
+		private PatientPanel patientPanel, patientPanel2;
 
 		WeekTopPanel() {
 
-			this.setBackground(Color.RED);
-			
 			setLayout(new GridBagLayout());
 
 			diagnoses = new JLabel("Diagnoses");
 			patientName = new JLabel("Patient Name");
-			
+
 			monday = new JLabel("MON", SwingConstants.CENTER);
 			tuesday = new JLabel("TUE", SwingConstants.CENTER);
 			wednesday = new JLabel("WED", SwingConstants.CENTER);
@@ -102,7 +164,7 @@ public class WeekScreen extends JPanel {
 
 			diagnoses.setPreferredSize(new Dimension(200, 25));
 			patientName.setPreferredSize(new Dimension(200, 25));
-			
+
 			monday.setPreferredSize(new Dimension(50, 25));
 			tuesday.setPreferredSize(new Dimension(50, 25));
 			wednesday.setPreferredSize(new Dimension(50, 25));
@@ -110,13 +172,10 @@ public class WeekScreen extends JPanel {
 			friday.setPreferredSize(new Dimension(50, 25));
 			saturday.setPreferredSize(new Dimension(50, 25));
 			sunday.setPreferredSize(new Dimension(50, 25));
-			
-//			patientPanel = new PatientPanel();
-//			patientPanel2 = new PatientPanel();
-			
-			diagnoses.setBorder(BorderFactory.createEtchedBorder(1));		
+
+			diagnoses.setBorder(BorderFactory.createEtchedBorder(1));
 			patientName.setBorder(BorderFactory.createEtchedBorder(1));
-			
+
 			monday.setBorder(BorderFactory.createEtchedBorder(1));
 			tuesday.setBorder(BorderFactory.createEtchedBorder(1));
 			wednesday.setBorder(BorderFactory.createEtchedBorder(1));
@@ -124,13 +183,13 @@ public class WeekScreen extends JPanel {
 			friday.setBorder(BorderFactory.createEtchedBorder(1));
 			saturday.setBorder(BorderFactory.createEtchedBorder(1));
 			sunday.setBorder(BorderFactory.createEtchedBorder(1));
-			
+
 			layoutTopPanel();
-			
+
 		}
 
 		private void layoutTopPanel() {
-			
+
 			GridBagConstraints c = new GridBagConstraints();
 
 			c.fill = GridBagConstraints.HORIZONTAL;
@@ -139,7 +198,7 @@ public class WeekScreen extends JPanel {
 			c.gridheight = 1;
 			c.gridx = 0;
 			c.gridy = 0;
-			
+
 			add(patientName, c);
 
 			c.weightx = 0.05;
@@ -203,19 +262,11 @@ public class WeekScreen extends JPanel {
 			c.gridheight = 1;
 			c.gridx = 8;
 			c.gridy = 0;
-			
+
 			add(diagnoses, c);
 
-			//c.weightx = 1;
-//			c.gridwidth = 9;
-//			c.gridheight = 1;
-//			c.gridx = 0;
-//			c.gridy = 1;
-//			
-//			add(patientPanel, c);
-			
 		}
-		
+
 	}
 
 }
