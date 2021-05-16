@@ -1,6 +1,7 @@
 package weekSheet;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -20,16 +21,21 @@ public class WeekScreen extends JPanel {
 
 	private JScrollPane scrollPane;
 	private WeekTopPanel topPanel;
+	private WeekLabelsPanel labelsPanel;
 	private WeekMainPanel mainPanel;
 	private WeekBottomPanel bottomPanel;
 
+	// TODO Add top line for file and settings drop down menu that has
+	// import and export options as well as save, etc.
 	public WeekScreen() {
 
-		setLayout(new BorderLayout());
+		// Must change layout to accommodate for fourth line
+		setLayout(new GridBagLayout());
 
-		topPanel = new WeekTopPanel();
+		labelsPanel = new WeekLabelsPanel();
 		mainPanel = new WeekMainPanel();
 		bottomPanel = new WeekBottomPanel();
+		topPanel = new WeekTopPanel();
 
 		bottomPanel.addNewPatientButton.addActionListener(new ActionListener() {
 
@@ -49,7 +55,7 @@ public class WeekScreen extends JPanel {
 			}
 
 		});
-		
+
 		// TODO Add functionality here
 		bottomPanel.removeLastPatientButton.addActionListener(new ActionListener() {
 
@@ -57,97 +63,70 @@ public class WeekScreen extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				System.out.println("remove last patient button");
 			}
-			
+
 		});
 
 		// Wrap main panel in scroll pane and add it instead of adding main panel
 		scrollPane = new JScrollPane(mainPanel, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,
 				ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 
-		add(topPanel, BorderLayout.NORTH);
-		add(scrollPane, BorderLayout.CENTER);
-		add(bottomPanel, BorderLayout.SOUTH);
+		GridBagConstraints c = new GridBagConstraints();
 
-	}
+		c.fill = GridBagConstraints.BOTH;
+		c.gridx = 0;
+		c.weightx = 1;
 
-	private class WeekBottomPanel extends JPanel {
+		c.gridy = 0;
+		c.weighty = 0.01;
+		
+		add(topPanel, c);
+		
+		c.weighty = 0;
+		c.gridy = 1;
 
-		private CustomButton addNewPatientButton;
-		private CustomButton removeLastPatientButton;
-		private CustomButton tempButton;
+		add(labelsPanel, c);
 
-		WeekBottomPanel() {
+		c.gridy = 2;
+		c.weighty = .8;
+		c.anchor = GridBagConstraints.CENTER;
 
-			setPreferredSize(new Dimension(100, 25));
-			setLayout(new BorderLayout());
+		add(scrollPane, c);
 
-			tempButton = new CustomButton();
-			addNewPatientButton = new CustomButton();
-			removeLastPatientButton = new CustomButton();
+		c.gridy = 3;
+		c.weighty = 0.005;
 
-			add(tempButton, BorderLayout.CENTER);
-			add(addNewPatientButton, BorderLayout.WEST);
-			add(removeLastPatientButton, BorderLayout.EAST);
-
-		}
-
-	}
-
-	private class WeekMainPanel extends JPanel {
-
-		private PatientPanel patientPanel;
-		private JLabel tempLabel;
-		private GridBagConstraints c;
-
-		WeekMainPanel() {
-
-			setLayout(new GridBagLayout());
-
-			c = new GridBagConstraints();
-
-			patientPanel = new PatientPanel();
-			tempLabel = new JLabel();
-
-			c.fill = GridBagConstraints.BOTH;
-			c.weightx = 1;
-			c.gridx = 0;
-			c.gridy = 0;
-
-		}
-
-		private void addNewPatientPanel(GridBagConstraints c) {
-
-			// tempLabel is just here to fill up bottom space so patient labels
-			// are added from top to bottom
-
-			// Remove and then add back at the end
-			remove(tempLabel);
-
-			// Set weighty back to default
-			c.weighty = 0;
-			patientPanel = new PatientPanel();
-			add(patientPanel, c);
-			c.gridy++;
-
-			// Set weighty to 1 so that it fills the remaining space
-			c.weighty = 1;
-			add(tempLabel, c);
-
-			repaint();
-			revalidate();
-
-		}
+		add(bottomPanel, c);
 
 	}
 
 	private class WeekTopPanel extends JPanel {
 
+		private CustomButton selectWeekButton;
+		
+		WeekTopPanel() {
+			
+			setLayout(new GridBagLayout());
+			
+			selectWeekButton = new CustomButton("Week: XX/XX/XX");
+			
+			GridBagConstraints c = new GridBagConstraints();
+			
+			c.gridx = 0;
+			c.gridy = 0;
+			
+			add(selectWeekButton, c);
+			
+		}
+		
+	}
+
+	private class WeekLabelsPanel extends JPanel {
+
 		private JLabel monday, tuesday, wednesday, thursday, friday, saturday, sunday;
 		private JLabel patientName;
 		private JLabel diagnoses;
-		private PatientPanel patientPanel, patientPanel2;
 
-		WeekTopPanel() {
+		WeekLabelsPanel() {
 
 			setLayout(new GridBagLayout());
 
@@ -268,5 +247,80 @@ public class WeekScreen extends JPanel {
 		}
 
 	}
+
+	private class WeekMainPanel extends JPanel {
+
+		private PatientPanel patientPanel;
+		private JLabel tempLabel;
+		private GridBagConstraints c;
+
+		WeekMainPanel() {
+
+			setLayout(new GridBagLayout());
+
+			c = new GridBagConstraints();
+
+			patientPanel = new PatientPanel();
+			tempLabel = new JLabel();
+
+			c.fill = GridBagConstraints.BOTH;
+			c.weightx = 1;
+			c.gridx = 0;
+			c.gridy = 0;
+
+		}
+
+		private void addNewPatientPanel(GridBagConstraints c) {
+
+			// tempLabel is just here to fill up bottom space so patient labels
+			// are added from top to bottom
+
+			// Remove and then add back at the end
+			remove(tempLabel);
+
+			// Set weighty back to default
+			c.weighty = 0;
+			patientPanel = new PatientPanel();
+			add(patientPanel, c);
+			c.gridy++;
+
+			// Set weighty to 1 so that it fills the remaining space
+			c.weighty = 1;
+			add(tempLabel, c);
+
+			repaint();
+			revalidate();
+
+		}
+
+	}
+	
+	private class WeekBottomPanel extends JPanel {
+
+		private CustomButton addNewPatientButton;
+		private CustomButton removeLastPatientButton;
+		private CustomButton tempButton;
+
+		WeekBottomPanel() {
+
+			setPreferredSize(new Dimension(100, 25));
+			setLayout(new BorderLayout());
+
+			tempButton = new CustomButton();
+			addNewPatientButton = new CustomButton();
+			removeLastPatientButton = new CustomButton();
+
+			tempButton.setText("temp");
+			addNewPatientButton.setText("add");
+			removeLastPatientButton.setText("remove");
+
+			add(tempButton, BorderLayout.CENTER);
+			add(addNewPatientButton, BorderLayout.WEST);
+			add(removeLastPatientButton, BorderLayout.EAST);
+
+		}
+
+	}
+
 
 }
