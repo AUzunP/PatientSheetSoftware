@@ -62,8 +62,22 @@ public class MainFrame extends JFrame{
 		testPatient.printCodes();
 		testPatient.printDiagnoses();
 		
-		WeekSheet.weekNumber(4, 2020);
+		WeekSheet.weekNumber(3, 2021);
 		WeekSheet.getCurrentWeek();
+
+		//FOR TESTING WEEKSHEET
+		
+//		for (int i = 1; i < 53; i++) {
+//			
+//			String date = WeekSheet.weekNumber(i, 2021);
+//			
+//			String month = date.substring(0, 2);
+//			String day = date.substring(3, date.length());
+//			
+//			int[] test = WeekSheet.getNumberedDays(Integer.valueOf(month), Integer.valueOf(day));
+//			
+//			System.out.println(test[0] + " " + test[1] + " " + test[2] + " " + test[3] + " " + test[4] + " " + test[5] + " " + test[6]);			
+//		}
 		
 	}
 	

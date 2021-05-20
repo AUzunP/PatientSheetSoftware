@@ -37,6 +37,17 @@ public class WeekScreen extends JPanel {
 		bottomPanel = new WeekBottomPanel();
 		topPanel = new WeekTopPanel();
 
+		topPanel.selectWeekButton.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// Temporarily just give random week
+				System.out.println(WeekSheet.getCurrentWeek());
+				
+			}
+			
+		});
+		
 		bottomPanel.addNewPatientButton.addActionListener(new ActionListener() {
 
 			@Override
@@ -321,6 +332,5 @@ public class WeekScreen extends JPanel {
 		}
 
 	}
-
 
 }

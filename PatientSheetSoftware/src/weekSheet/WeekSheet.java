@@ -17,6 +17,7 @@ public class WeekSheet extends JPanel {
 	private int currYear = Calendar.getInstance().get(Calendar.YEAR);
 	private int finYear = currYear;
 	private ArrayList<String> weeksAList = new ArrayList<String>();
+	private static int[] numDaysMonth = { 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
 
 	public WeekSheet() {
 
@@ -25,40 +26,54 @@ public class WeekSheet extends JPanel {
 	}
 
 	public static String weekNumber(int weekNum, int year) {
-    	
-		//Return week given week number
-      	Calendar calendar = Calendar.getInstance();
-      	calendar.setWeekDate(year, weekNum, 2);
-      	java.util.Date da = calendar.getTime();
-      	DateFormat dateFormat = new SimpleDateFormat("MM/dd");
-      	String fDate = dateFormat.format(da);
-      	
-      	System.out.println("Week " + Integer.toString(weekNum) + " of " + year + " corresponds to: " + fDate);
-      	//test
-      	
-      	return fDate;
-    }
-	
-//	private void writeWeeks(int yearUse) {
-//
-//		weeksAList.clear();
-//
-//		for (int i = 1; i < 54; i++) {
-//			weeksAList.add("Week " + Integer.toString(i) + " : " + weekNumber(i, yearUse));
-//		}
-//		weeks = new String[weeksAList.size()];
-//
-//		// ArrayList to Array
-//		for (int i = 0; i < weeksAList.size(); i++) {
-//			weeks[i] = weeksAList.get(i);
-//		}
-//		
-//	}
+
+		// Return week given week number
+		Calendar calendar = Calendar.getInstance();
+		calendar.setWeekDate(year, weekNum, 2);
+		java.util.Date da = calendar.getTime();
+		DateFormat dateFormat = new SimpleDateFormat("MM/dd");
+		String fDate = dateFormat.format(da);
+
+		System.out.println("Week " + Integer.toString(weekNum) + " of " + year + " corresponds to: " + fDate);
+		
+		return fDate;
+	}
 
 	public static int getCurrentWeek() {
-        LocalDate date = LocalDate.now();
-        WeekFields weekFields = WeekFields.of(Locale.getDefault());
-        return date.get(weekFields.weekOfWeekBasedYear());
-    }
-	
+		LocalDate date = LocalDate.now();
+		WeekFields weekFields = WeekFields.of(Locale.getDefault());
+		return date.get(weekFields.weekOfWeekBasedYear());
+	}
+
+	public static int[] getNumberedDays(int month, int numDay) {
+
+		int[] numberedDays = new int[7];
+
+		//System.out.println("the month is " + month + " and max days are " + numDaysMonth[month-1]);
+		
+		for (int i = 0; i < 7; i++) {
+			
+			if (numDay > numDaysMonth[month-1]) {
+				numDay = 1;
+			}
+			
+			numberedDays[i] = numDay;
+			numDay++;
+			
+		}
+		
+//		// add correct day numbers to array
+//		for (int i = 0; i < 7; i++) {
+//			numberedDays[i] = numDay;
+//			// if day is higher than the maximum amount of days in the given month, reset to 1
+//			if (!(numDay > numDaysMonth[month - 1])) {
+//				numDay++;
+//			} else {
+//				numDay = 1;
+//			}
+//		}
+
+		return numberedDays;
+	}
+
 }
