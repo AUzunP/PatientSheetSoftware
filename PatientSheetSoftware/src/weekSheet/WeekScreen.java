@@ -26,7 +26,7 @@ public class WeekScreen extends JPanel {
 	private WeekBottomPanel bottomPanel;
 
 	// TODO Add top line for file and settings drop down menu that has
-	// import and export options as well as save, etc.
+	// Import and export options as well as save, etc.
 	public WeekScreen() {
 
 		// Must change layout to accommodate for fourth line
