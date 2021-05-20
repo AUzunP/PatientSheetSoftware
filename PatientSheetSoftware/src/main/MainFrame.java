@@ -65,7 +65,7 @@ public class MainFrame extends JFrame{
 		WeekSheet.weekNumber(3, 2021);
 		WeekSheet.getCurrentWeek();
 
-		//FOR TESTING WEEKSHEET
+		// FOR TESTING WEEKSHEET
 		
 //		for (int i = 1; i < 53; i++) {
 //			

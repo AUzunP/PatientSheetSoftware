@@ -49,7 +49,7 @@ public class WeekSheet extends JPanel {
 
 		int[] numberedDays = new int[7];
 
-		//System.out.println("the month is " + month + " and max days are " + numDaysMonth[month-1]);
+		//System.out.println("The month is " + month + " and max days are " + numDaysMonth[month-1]);
 		
 		for (int i = 0; i < 7; i++) {
 			

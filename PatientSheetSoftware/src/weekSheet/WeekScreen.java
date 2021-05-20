@@ -43,7 +43,6 @@ public class WeekScreen extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				// Temporarily just give random week
 				System.out.println(WeekSheet.getCurrentWeek());
-				
 			}
 			
 		});
