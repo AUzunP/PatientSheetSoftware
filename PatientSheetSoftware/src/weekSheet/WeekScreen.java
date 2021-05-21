@@ -1,7 +1,6 @@
 package weekSheet;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -9,9 +8,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JTextField;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.SwingConstants;
 
@@ -24,6 +25,13 @@ public class WeekScreen extends JPanel {
 	private WeekLabelsPanel labelsPanel;
 	private WeekMainPanel mainPanel;
 	private WeekBottomPanel bottomPanel;
+	
+	// Components for createWeekSelectFrame
+	
+	private JFrame weekSelectFrame;
+	private CustomButton okButton;
+	private JTextField currentWeek;
+	private JTextField selectedYear;
 
 	// TODO Add top line for file and settings drop down menu that has
 	// Import and export options as well as save, etc.
@@ -43,6 +51,8 @@ public class WeekScreen extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				// Temporarily just give random week
 				System.out.println(WeekSheet.getCurrentWeek());
+				createWeekSelectFrame();
+				
 			}
 			
 		});
@@ -107,6 +117,42 @@ public class WeekScreen extends JPanel {
 
 		add(bottomPanel, c);
 
+	}
+	
+	private void createWeekSelectFrame() {
+		
+		weekSelectFrame = new JFrame("Select Week");
+		
+		selectedYear = new JTextField("CURRENT YEAR");
+		currentWeek = new JTextField("CURRENT WEEK");
+		okButton = new CustomButton("OK");
+		
+		Dimension d = new Dimension(300, 500);
+		weekSelectFrame.setPreferredSize(d);
+		weekSelectFrame.setResizable(false);
+		weekSelectFrame.setLayout(new GridBagLayout());
+		weekSelectFrame.pack();
+		weekSelectFrame.setLocationRelativeTo(this);
+		
+		GridBagConstraints c = new GridBagConstraints();
+		
+		c.gridx = 0;
+		c.gridy = 0;
+		
+		weekSelectFrame.add(selectedYear, c);
+		
+		c.gridx = 0;
+		c.gridy = 1;
+		
+		weekSelectFrame.add(currentWeek, c);
+		
+		c.gridx = 0;
+		c.gridy = 2;
+		
+		weekSelectFrame.add(okButton, c);
+		
+		weekSelectFrame.setVisible(true);
+		
 	}
 
 	private class WeekTopPanel extends JPanel {
