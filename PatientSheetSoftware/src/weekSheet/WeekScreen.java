@@ -186,6 +186,9 @@ public class WeekScreen extends JPanel {
 
 			setLayout(new GridBagLayout());
 
+			Dimension tabDimension = new Dimension(200, 25);
+			Dimension dayDimension = new Dimension(50, 25);
+			
 			diagnoses = new JLabel("Diagnoses");
 			patientName = new JLabel("Patient Name");
 
@@ -197,16 +200,16 @@ public class WeekScreen extends JPanel {
 			saturday = new JLabel("SAT", SwingConstants.CENTER);
 			sunday = new JLabel("SUN", SwingConstants.CENTER);
 
-			diagnoses.setPreferredSize(new Dimension(200, 25));
-			patientName.setPreferredSize(new Dimension(200, 25));
+			diagnoses.setPreferredSize(tabDimension);
+			patientName.setPreferredSize(tabDimension);
 
-			monday.setPreferredSize(new Dimension(50, 25));
-			tuesday.setPreferredSize(new Dimension(50, 25));
-			wednesday.setPreferredSize(new Dimension(50, 25));
-			thursday.setPreferredSize(new Dimension(50, 25));
-			friday.setPreferredSize(new Dimension(50, 25));
-			saturday.setPreferredSize(new Dimension(50, 25));
-			sunday.setPreferredSize(new Dimension(50, 25));
+			monday.setPreferredSize(dayDimension);
+			tuesday.setPreferredSize(dayDimension);
+			wednesday.setPreferredSize(dayDimension);
+			thursday.setPreferredSize(dayDimension);
+			friday.setPreferredSize(dayDimension);
+			saturday.setPreferredSize(dayDimension);
+			sunday.setPreferredSize(dayDimension);
 
 			diagnoses.setBorder(BorderFactory.createEtchedBorder(1));
 			patientName.setBorder(BorderFactory.createEtchedBorder(1));
