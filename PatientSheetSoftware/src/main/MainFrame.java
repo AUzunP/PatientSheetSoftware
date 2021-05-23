@@ -8,12 +8,14 @@ import javax.swing.JFrame;
 
 import patient.DayNote;
 import patient.Patient;
+import settings.SettingsPanel;
 import weekSheet.WeekScreen;
 import weekSheet.WeekSheet;
 
 public class MainFrame extends JFrame{
 
 	WeekScreen weekScreen;
+	SettingsPanel settingsPanel;
 	
 	public MainFrame() {
 		
@@ -31,7 +33,10 @@ public class MainFrame extends JFrame{
 		this.repaint();
 		this.setLocationRelativeTo(null);
 		
-		WeekScreen weekScreen = new WeekScreen();
+		settingsPanel = new SettingsPanel();
+		weekScreen = new WeekScreen();
+
+		add(settingsPanel, BorderLayout.NORTH);
 		add(weekScreen, BorderLayout.CENTER);
 		
 		setVisible(true);
