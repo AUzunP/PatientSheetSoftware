@@ -6,7 +6,7 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
+import java.util.Calendar;
 
 import javax.swing.BorderFactory;
 import javax.swing.JComboBox;
@@ -32,11 +32,11 @@ public class WeekScreen extends JPanel {
 	
 	private JFrame weekSelectFrame;
 	private CustomButton okButton;
-	private JComboBox currentWeek;
+	private JComboBox selectedWeek;
 	private JTextField selectedYear;
 	
 	private String[] weeksArray;
-
+	private int year = Calendar.getInstance().get(Calendar.YEAR);
 	// TODO Add top line for file and settings drop down menu that has
 	// Import and export options as well as save, etc.
 	public WeekScreen() {
@@ -48,13 +48,15 @@ public class WeekScreen extends JPanel {
 		mainPanel = new WeekMainPanel();
 		bottomPanel = new WeekBottomPanel();
 		topPanel = new WeekTopPanel();
+		
+		
 
 		topPanel.selectWeekButton.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// Temporarily just give random week
-				System.out.println(WeekSheet.getCurrentWeek());
+				//sSystem.out.println(WeekSheet.getCurrentWeek());
 				createWeekSelectFrame();
 				
 			}
@@ -126,14 +128,13 @@ public class WeekScreen extends JPanel {
 	private void createWeekSelectFrame() {
 		
 		weeksArray = new String[54];
-		writeWeeks(2021);
-
 		weekSelectFrame = new JFrame("Select Week");
 		
-		selectedYear = new JTextField("CURRENT YEAR");
-		currentWeek = new JComboBox(weeksArray);
-		okButton = new CustomButton("OK");
+		selectedYear = new JTextField(String.valueOf(year));
+		writeWeeks(year);
 		
+		selectedWeek = new JComboBox(weeksArray);
+		okButton = new CustomButton("OK");
 		
 		Dimension d = new Dimension(150, 300);
 		weekSelectFrame.setPreferredSize(d);
@@ -142,6 +143,26 @@ public class WeekScreen extends JPanel {
 		weekSelectFrame.pack();
 		weekSelectFrame.setLocationRelativeTo(this);
 		
+		selectedYear.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				if (Integer.parseInt(selectedYear.getText()) > 1 && Integer.parseInt(selectedYear.getText()) < 9999) {
+					 year = Integer.parseInt(selectedYear.getText());
+					 
+					 selectedWeek.removeAllItems();
+					 writeWeeks(year);
+					 
+					 for (int i = 0; i < weeksArray.length; i++) {
+						 selectedWeek.addItem(weeksArray[i]);
+					 }
+					 
+				}
+				
+			}
+			
+		});
 		
 		GridBagConstraints c = new GridBagConstraints();
 		
@@ -153,7 +174,7 @@ public class WeekScreen extends JPanel {
 		c.gridx = 0;
 		c.gridy = 1;
 		
-		weekSelectFrame.add(currentWeek, c);
+		weekSelectFrame.add(selectedWeek, c);
 		
 		c.gridx = 0;
 		c.gridy = 2;
@@ -171,7 +192,6 @@ public class WeekScreen extends JPanel {
 		for (int i = 1; i < weeksArray.length; i++) {
 			receivedWeek = WeekSheet.weekNumber(i, year);
 			weeksArray[i-1] = "Week " + i + " : " + receivedWeek;
-			System.out.println(receivedWeek);
 		}
 		
 	}

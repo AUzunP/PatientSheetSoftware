@@ -34,7 +34,7 @@ public class WeekSheet extends JPanel {
 		DateFormat dateFormat = new SimpleDateFormat("MM/dd");
 		String fDate = dateFormat.format(da);
 
-		System.out.println("Week " + Integer.toString(weekNum) + " of " + year + " corresponds to: " + fDate);
+		//System.out.println("Week " + Integer.toString(weekNum) + " of " + year + " corresponds to: " + fDate);
 		
 		return fDate;
 	}
