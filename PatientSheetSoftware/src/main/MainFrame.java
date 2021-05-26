@@ -24,7 +24,7 @@ public class MainFrame extends JFrame{
 		setLayout(new BorderLayout());
 		
 		// (x, y)
-		setMinimumSize(new Dimension(1000, 600));
+		setMinimumSize(new Dimension(1000, 1000));
 		setPreferredSize(new Dimension(1000, 1000));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
@@ -69,20 +69,20 @@ public class MainFrame extends JFrame{
 		
 		WeekSheet.weekNumber(3, 2021);
 		WeekSheet.getCurrentWeek();
-
+		
 		// FOR TESTING WEEKSHEET
 		
-//		for (int i = 1; i < 53; i++) {
-//			
-//			String date = WeekSheet.weekNumber(i, 2021);
-//			
-//			String month = date.substring(0, 2);
-//			String day = date.substring(3, date.length());
-//			
-//			int[] test = WeekSheet.getNumberedDays(Integer.valueOf(month), Integer.valueOf(day));
-//			
-//			System.out.println(test[0] + " " + test[1] + " " + test[2] + " " + test[3] + " " + test[4] + " " + test[5] + " " + test[6]);			
-//		}
+		for (int i = 1; i < 53; i++) {
+			
+			String date = WeekSheet.weekNumber(i, 2021);
+			
+			String month = date.substring(0, 2);
+			String day = date.substring(3, date.length());
+			
+			int[] test = WeekSheet.getNumberedDays(Integer.valueOf(month), Integer.valueOf(day));
+			
+			System.out.println(test[0] + " " + test[1] + " " + test[2] + " " + test[3] + " " + test[4] + " " + test[5] + " " + test[6]);			
+		}
 		
 	}
 	

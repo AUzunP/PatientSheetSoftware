@@ -6,8 +6,10 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -30,8 +32,10 @@ public class WeekScreen extends JPanel {
 	
 	private JFrame weekSelectFrame;
 	private CustomButton okButton;
-	private JTextField currentWeek;
+	private JComboBox currentWeek;
 	private JTextField selectedYear;
+	
+	private String[] weeksArray;
 
 	// TODO Add top line for file and settings drop down menu that has
 	// Import and export options as well as save, etc.
@@ -121,18 +125,23 @@ public class WeekScreen extends JPanel {
 	
 	private void createWeekSelectFrame() {
 		
+		weeksArray = new String[54];
+		writeWeeks(2021);
+
 		weekSelectFrame = new JFrame("Select Week");
 		
 		selectedYear = new JTextField("CURRENT YEAR");
-		currentWeek = new JTextField("CURRENT WEEK");
+		currentWeek = new JComboBox(weeksArray);
 		okButton = new CustomButton("OK");
 		
-		Dimension d = new Dimension(300, 500);
+		
+		Dimension d = new Dimension(150, 300);
 		weekSelectFrame.setPreferredSize(d);
 		weekSelectFrame.setResizable(false);
 		weekSelectFrame.setLayout(new GridBagLayout());
 		weekSelectFrame.pack();
 		weekSelectFrame.setLocationRelativeTo(this);
+		
 		
 		GridBagConstraints c = new GridBagConstraints();
 		
@@ -154,7 +163,19 @@ public class WeekScreen extends JPanel {
 		weekSelectFrame.setVisible(true);
 		
 	}
-
+	
+	private void writeWeeks(int year) {
+		
+		String receivedWeek = "";
+		
+		for (int i = 1; i < weeksArray.length; i++) {
+			receivedWeek = WeekSheet.weekNumber(i, year);
+			weeksArray[i-1] = "Week " + i + " : " + receivedWeek;
+			System.out.println(receivedWeek);
+		}
+		
+	}
+	
 	private class WeekTopPanel extends JPanel {
 
 		private CustomButton selectWeekButton;
