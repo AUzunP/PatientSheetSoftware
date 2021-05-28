@@ -136,7 +136,7 @@ public class WeekScreen extends JPanel {
 		selectedWeek = new JComboBox(weeksArray);
 		okButton = new CustomButton("OK");
 		
-		Dimension d = new Dimension(150, 300);
+		Dimension d = new Dimension(150, 400);
 		weekSelectFrame.setPreferredSize(d);
 		weekSelectFrame.setResizable(false);
 		weekSelectFrame.setLayout(new GridBagLayout());
