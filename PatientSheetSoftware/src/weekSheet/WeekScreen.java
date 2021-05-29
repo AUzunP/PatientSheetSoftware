@@ -36,6 +36,7 @@ public class WeekScreen extends JPanel {
 	private JTextField selectedYear;
 	
 	private String[] weeksArray;
+	private int[] weeksLabel;
 	private int year = Calendar.getInstance().get(Calendar.YEAR);
 	// TODO Add top line for file and settings drop down menu that has
 	// Import and export options as well as save, etc.
@@ -48,8 +49,6 @@ public class WeekScreen extends JPanel {
 		mainPanel = new WeekMainPanel();
 		bottomPanel = new WeekBottomPanel();
 		topPanel = new WeekTopPanel();
-		
-		
 
 		topPanel.selectWeekButton.addActionListener(new ActionListener() {
 
@@ -142,7 +141,7 @@ public class WeekScreen extends JPanel {
 		weekSelectFrame.setLayout(new GridBagLayout());
 		weekSelectFrame.pack();
 		weekSelectFrame.setLocationRelativeTo(this);
-		// test test
+		
 		selectedYear.addActionListener(new ActionListener() {
 
 			@Override
@@ -159,6 +158,19 @@ public class WeekScreen extends JPanel {
 					 }
 					 
 				}
+				
+			}
+			
+		});
+		
+		//preliminary okbutton action
+		okButton.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				String test = selectedWeek.getSelectedItem().toString();
+				test = test.substring(test.length()-5, test.length());
+				weeksLabel = WeekSheet.getNumberedDays(Integer.valueOf(test.substring(0, 2)), Integer.valueOf(test.substring(3, test.length())));
 				
 			}
 			
