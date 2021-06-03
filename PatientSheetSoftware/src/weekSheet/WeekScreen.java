@@ -27,17 +27,20 @@ public class WeekScreen extends JPanel {
 	private WeekLabelsPanel labelsPanel;
 	private WeekMainPanel mainPanel;
 	private WeekBottomPanel bottomPanel;
-	
+
 	// Components for createWeekSelectFrame
-	
+
 	private JFrame weekSelectFrame;
 	private CustomButton okButton;
 	private JComboBox selectedWeek;
 	private JTextField selectedYear;
-	
+
+	private WeekScreenListener weekScreenListener;
+
 	private String[] weeksArray;
 	private int[] weeksLabel;
 	private int year = Calendar.getInstance().get(Calendar.YEAR);
+
 	// TODO Add top line for file and settings drop down menu that has
 	// Import and export options as well as save, etc.
 	public WeekScreen() {
@@ -55,13 +58,13 @@ public class WeekScreen extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// Temporarily just give random week
-				//sSystem.out.println(WeekSheet.getCurrentWeek());
+				// System.out.println(WeekSheet.getCurrentWeek());
 				createWeekSelectFrame();
-				
+
 			}
-			
+
 		});
-		
+
 		bottomPanel.addNewPatientButton.addActionListener(new ActionListener() {
 
 			@Override
@@ -95,6 +98,24 @@ public class WeekScreen extends JPanel {
 		scrollPane = new JScrollPane(mainPanel, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,
 				ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 
+		this.setWeekScreenListener(new WeekScreenListener() {
+
+			@Override
+			public void WeekScreenEventOccurred(WeekScreenEvent ev) {
+				labelsPanel.labelDays(weeksLabel);
+				
+				// This section is a bit messy, might be better to just give the days to weekscreenevent and grab it from there
+				String day = Integer.toString(weeksLabel[6]);				
+				
+				if (day.length() == 1) {
+					day = "0" + day;
+				}
+				
+				topPanel.setWeekButtonText(ev.getMonth(), day, ev.getYear());
+			}
+
+		});
+
 		GridBagConstraints c = new GridBagConstraints();
 
 		c.fill = GridBagConstraints.BOTH;
@@ -103,9 +124,9 @@ public class WeekScreen extends JPanel {
 
 		c.gridy = 0;
 		c.weighty = 0.01;
-		
+
 		add(topPanel, c);
-		
+
 		c.weighty = 0;
 		c.gridy = 1;
 
@@ -123,107 +144,127 @@ public class WeekScreen extends JPanel {
 		add(bottomPanel, c);
 
 	}
-	
+
 	private void createWeekSelectFrame() {
-		
+
 		weeksArray = new String[54];
 		weekSelectFrame = new JFrame("Select Week");
-		
+
 		selectedYear = new JTextField(String.valueOf(year));
 		writeWeeks(year);
-		
-		selectedWeek = new JComboBox(weeksArray);
+
+		selectedWeek = new JComboBox<String>(weeksArray);
 		okButton = new CustomButton("OK");
-		
+
 		Dimension d = new Dimension(150, 400);
 		weekSelectFrame.setPreferredSize(d);
 		weekSelectFrame.setResizable(false);
 		weekSelectFrame.setLayout(new GridBagLayout());
 		weekSelectFrame.pack();
 		weekSelectFrame.setLocationRelativeTo(this);
-		
+
 		selectedYear.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				
+
 				if (Integer.parseInt(selectedYear.getText()) > 1 && Integer.parseInt(selectedYear.getText()) < 9999) {
-					 year = Integer.parseInt(selectedYear.getText());
-					 
-					 selectedWeek.removeAllItems();
-					 writeWeeks(year);
-					 
-					 for (int i = 0; i < weeksArray.length; i++) {
-						 selectedWeek.addItem(weeksArray[i]);
-					 }
-					 
+					year = Integer.parseInt(selectedYear.getText());
+
+					selectedWeek.removeAllItems();
+					writeWeeks(year);
+
+					for (int i = 0; i < weeksArray.length; i++) {
+						selectedWeek.addItem(weeksArray[i]);
+					}
+
 				}
-				
+
 			}
-			
+
 		});
-		
-		//preliminary okbutton action
+
+		// preliminary okbutton action
 		okButton.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				String test = selectedWeek.getSelectedItem().toString();
-				test = test.substring(test.length()-5, test.length());
-				weeksLabel = WeekSheet.getNumberedDays(Integer.valueOf(test.substring(0, 2)), Integer.valueOf(test.substring(3, test.length())));
+				String selected = selectedWeek.getSelectedItem().toString();
+				selected = selected.substring(selected.length() - 5, selected.length());
+				weeksLabel = WeekSheet.getNumberedDays(Integer.valueOf(selected.substring(0, 2)),
+						Integer.valueOf(selected.substring(3, selected.length())));
+				weekSelectFrame.setVisible(false);
 				
+				WeekScreenEvent ev = new WeekScreenEvent(this, selected.substring(0, 2), selectedYear.getText());
+
+				if (weekScreenListener != null) {
+					weekScreenListener.WeekScreenEventOccurred(ev);
+				}
+
 			}
-			
+
 		});
-		
+
 		GridBagConstraints c = new GridBagConstraints();
-		
+
 		c.gridx = 0;
 		c.gridy = 0;
-		
+
 		weekSelectFrame.add(selectedYear, c);
-		
+
 		c.gridx = 0;
 		c.gridy = 1;
-		
+
 		weekSelectFrame.add(selectedWeek, c);
-		
+
 		c.gridx = 0;
 		c.gridy = 2;
-		
+
 		weekSelectFrame.add(okButton, c);
-		
+
 		weekSelectFrame.setVisible(true);
-		
+
 	}
-	
+
+	public void setWeekScreenListener(WeekScreenListener listener) {
+
+		this.weekScreenListener = listener;
+
+	}
+
 	private void writeWeeks(int year) {
-		
+
 		String receivedWeek = "";
-		
+
 		for (int i = 1; i < weeksArray.length; i++) {
 			receivedWeek = WeekSheet.weekNumber(i, year);
-			weeksArray[i-1] = "Week " + i + " : " + receivedWeek;
+			weeksArray[i - 1] = "Week " + i + " : " + receivedWeek;
 		}
-		
+
 	}
-	
+
 	private class WeekTopPanel extends JPanel {
 
 		private CustomButton selectWeekButton;
-		
+
 		WeekTopPanel() {
-			
+
 			setLayout(new GridBagLayout());
-			
+
 			selectWeekButton = new CustomButton("Week: XX/XX/XX");
-			
+
 			GridBagConstraints c = new GridBagConstraints();
-			
+
 			c.gridx = 0;
 			c.gridy = 0;
-			
+
 			add(selectWeekButton, c);
+
+		}
+
+		private void setWeekButtonText(String month, String day, String year) {
+			
+			selectWeekButton.setText("Week: " + month + "/" + day + "/" + year);
 			
 		}
 		
@@ -241,7 +282,7 @@ public class WeekScreen extends JPanel {
 
 			Dimension tabDimension = new Dimension(200, 25);
 			Dimension dayDimension = new Dimension(50, 25);
-			
+
 			diagnoses = new JLabel("Diagnoses");
 			patientName = new JLabel("Patient Name");
 
@@ -276,6 +317,18 @@ public class WeekScreen extends JPanel {
 			sunday.setBorder(BorderFactory.createEtchedBorder(1));
 
 			layoutTopPanel();
+
+		}
+
+		private void labelDays(int[] numbers) {
+
+			monday.setText("MON: " + numbers[0]);
+			tuesday.setText("TUE: " + numbers[1]);
+			wednesday.setText("WED: " + numbers[2]);
+			thursday.setText("THU: " + numbers[3]);
+			friday.setText("FRI: " + numbers[4]);
+			saturday.setText("SAT: " + numbers[5]);
+			sunday.setText("SUN: " + numbers[6]);
 
 		}
 
@@ -406,7 +459,7 @@ public class WeekScreen extends JPanel {
 		}
 
 	}
-	
+
 	private class WeekBottomPanel extends JPanel {
 
 		private CustomButton addNewPatientButton;
