@@ -32,7 +32,7 @@ public class WeekScreen extends JPanel {
 
 	private JFrame weekSelectFrame;
 	private CustomButton okButton;
-	private JComboBox selectedWeek;
+	private JComboBox<String> selectedWeek;
 	private JTextField selectedYear;
 
 	private WeekScreenListener weekScreenListener;
@@ -104,12 +104,11 @@ public class WeekScreen extends JPanel {
 			public void WeekScreenEventOccurred(WeekScreenEvent ev) {
 				labelsPanel.labelDays(weeksLabel);
 				
-				// This section is a bit messy, might be better to just give the days to weekscreenevent and grab it from there
 				String day = Integer.toString(weeksLabel[6]);				
 				
 				if (day.length() == 1) {
 					day = "0" + day;
-				}
+				}	
 				
 				topPanel.setWeekButtonText(ev.getMonth(), day, ev.getYear());
 			}
@@ -147,13 +146,15 @@ public class WeekScreen extends JPanel {
 
 	private void createWeekSelectFrame() {
 
-		weeksArray = new String[54];
+		weeksArray = new String[53];
 		weekSelectFrame = new JFrame("Select Week");
 
 		selectedYear = new JTextField(String.valueOf(year));
-		writeWeeks(year);
-
-		selectedWeek = new JComboBox<String>(weeksArray);
+		
+		selectedWeek = new JComboBox<String>();
+		writeWeeks(year, selectedWeek);
+		
+		//selectedWeek = new JComboBox<String>(weeksArray);
 		okButton = new CustomButton("OK");
 
 		Dimension d = new Dimension(150, 400);
@@ -172,11 +173,7 @@ public class WeekScreen extends JPanel {
 					year = Integer.parseInt(selectedYear.getText());
 
 					selectedWeek.removeAllItems();
-					writeWeeks(year);
-
-					for (int i = 0; i < weeksArray.length; i++) {
-						selectedWeek.addItem(weeksArray[i]);
-					}
+					writeWeeks(year, selectedWeek);
 
 				}
 
@@ -190,9 +187,12 @@ public class WeekScreen extends JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				String selected = selectedWeek.getSelectedItem().toString();
+				
 				selected = selected.substring(selected.length() - 5, selected.length());
+				
 				weeksLabel = WeekSheet.getNumberedDays(Integer.valueOf(selected.substring(0, 2)),
 						Integer.valueOf(selected.substring(3, selected.length())));
+				
 				weekSelectFrame.setVisible(false);
 				
 				WeekScreenEvent ev = new WeekScreenEvent(this, selected.substring(0, 2), selectedYear.getText());
@@ -232,14 +232,19 @@ public class WeekScreen extends JPanel {
 
 	}
 
-	private void writeWeeks(int year) {
-
+	private void writeWeeks(int year, JComboBox box) {
 		String receivedWeek = "";
 
 		for (int i = 1; i < weeksArray.length; i++) {
 			receivedWeek = WeekSheet.weekNumber(i, year);
 			weeksArray[i - 1] = "Week " + i + " : " + receivedWeek;
 		}
+		
+		for (int i = 0; i < weeksArray.length; i++) {
+			box.addItem(weeksArray[i]);
+		}
+		
+		box.removeItemAt(52);
 
 	}
 
