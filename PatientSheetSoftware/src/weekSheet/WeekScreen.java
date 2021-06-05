@@ -4,8 +4,11 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.util.Calendar;
 
 import javax.swing.BorderFactory;
@@ -150,6 +153,16 @@ public class WeekScreen extends JPanel {
 		weekSelectFrame = new JFrame("Select Week");
 
 		selectedYear = new JTextField(String.valueOf(year));
+		selectedYear.setHorizontalAlignment(JTextField.CENTER);
+		
+		// Limit text field entry to 4 characters
+		selectedYear.addKeyListener(new KeyAdapter() {
+			public void keyTyped(KeyEvent e) {
+				if (selectedYear.getText().length() >= 4) {
+					e.consume();	
+				}
+			}
+		});
 		
 		selectedWeek = new JComboBox<String>();
 		writeWeeks(year, selectedWeek);
@@ -157,13 +170,17 @@ public class WeekScreen extends JPanel {
 		//selectedWeek = new JComboBox<String>(weeksArray);
 		okButton = new CustomButton("OK");
 
-		Dimension d = new Dimension(150, 400);
+		Dimension d = new Dimension(150, 275);
 		weekSelectFrame.setPreferredSize(d);
 		weekSelectFrame.setResizable(false);
 		weekSelectFrame.setLayout(new GridBagLayout());
 		weekSelectFrame.pack();
 		weekSelectFrame.setLocationRelativeTo(this);
-
+		
+		JPanel fillPanel = new JPanel();
+		fillPanel.setPreferredSize(new Dimension(100, 50));
+		fillPanel.setMinimumSize(new Dimension(100, 50));
+		
 		selectedYear.addActionListener(new ActionListener() {
 
 			@Override
@@ -207,9 +224,10 @@ public class WeekScreen extends JPanel {
 
 		GridBagConstraints c = new GridBagConstraints();
 
+		c.fill = GridBagConstraints.HORIZONTAL;
 		c.gridx = 0;
 		c.gridy = 0;
-
+		
 		weekSelectFrame.add(selectedYear, c);
 
 		c.gridx = 0;
@@ -217,11 +235,18 @@ public class WeekScreen extends JPanel {
 
 		weekSelectFrame.add(selectedWeek, c);
 
+		c.fill = GridBagConstraints.BOTH;
 		c.gridx = 0;
 		c.gridy = 2;
+		c.insets = new Insets(50, 0, 0, 0);
 
+		weekSelectFrame.add(fillPanel, c);
+
+		c.gridx = 0;
+		c.gridy = 3;
+		
 		weekSelectFrame.add(okButton, c);
-
+		
 		weekSelectFrame.setVisible(true);
 
 	}
