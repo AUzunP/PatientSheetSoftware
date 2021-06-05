@@ -1,16 +1,20 @@
 package weekSheet;
 
+import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import converter.CodeLabel;
+import converter.ICDCode;
 import customComponents.CustomButton;
 
 public class PatientPanel extends JPanel{
@@ -90,6 +94,9 @@ public class PatientPanel extends JPanel{
 		
 		diagnosesFrame = new JFrame("Diagnoses for " + this.patientName.getText());
 		
+		diagnosesFrame.setLayout(new GridBagLayout());
+		GridBagConstraints c = new GridBagConstraints();
+		
 		Dimension d = new Dimension(400, 400);
 		diagnosesFrame.setPreferredSize(d);
 		diagnosesFrame.setMinimumSize(d);
@@ -98,9 +105,25 @@ public class PatientPanel extends JPanel{
 		diagnosesFrame.pack();
 		diagnosesFrame.setLocationRelativeTo(this);
 		
-//		revalidate();
-//		repaint();
-		diagnosesFrame.setVisible(true);
+		c.gridx = 0;
+		c.gridy = 0;
+		
+		if (!this.patientName.getText().equals("")) {
+			diagnosesFrame.setVisible(true);			
+		}
+		
+		ArrayList<String> templist = new ArrayList<String>();
+		
+		templist.add("htn");
+		templist.add("hypertension");
+		templist.add("high blood pressure");
+		
+		CodeLabel tempLabel = new CodeLabel(new ICDCode("I10", templist));
+		
+		diagnosesFrame.add(tempLabel, c);
+		
+		repaint();
+		revalidate();
 		
 	}
 	
