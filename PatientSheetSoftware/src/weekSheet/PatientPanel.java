@@ -3,9 +3,11 @@ package weekSheet;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
-import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
@@ -20,10 +22,12 @@ public class PatientPanel extends JPanel{
 	private JTextField fridayNote;
 	private JTextField saturdayNote;
 	private JTextField sundayNote;
-
 	private JTextField patientName;
-	
 	private CustomButton diagnoses;
+	
+	// Components for diagnosesFrame
+	
+	private JFrame diagnosesFrame;
 	
 	public PatientPanel() {
 		
@@ -70,7 +74,33 @@ public class PatientPanel extends JPanel{
 		saturdayNote.setBorder(BorderFactory.createEtchedBorder(1));
 		sundayNote.setBorder(BorderFactory.createEtchedBorder(1));
 		
+		diagnoses.addActionListener(new ActionListener() {
+
+			public void actionPerformed(ActionEvent e) {
+				createDiagnosesFrame();
+			}
+			
+		});
+		
 		layoutPatientPanel();
+		
+	}
+	
+	private void createDiagnosesFrame() {
+		
+		diagnosesFrame = new JFrame("Diagnoses for " + this.patientName.getText());
+		
+		Dimension d = new Dimension(400, 400);
+		diagnosesFrame.setPreferredSize(d);
+		diagnosesFrame.setMinimumSize(d);
+		//diagnosesFrame.setResizable(false);
+		diagnosesFrame.setLayout(new GridBagLayout());
+		diagnosesFrame.pack();
+		diagnosesFrame.setLocationRelativeTo(this);
+		
+//		revalidate();
+//		repaint();
+		diagnosesFrame.setVisible(true);
 		
 	}
 	
@@ -151,6 +181,6 @@ public class PatientPanel extends JPanel{
 		
 		add(diagnoses, c);			
 	}
-	
+
 }
 

@@ -250,7 +250,7 @@ public class WeekScreen extends JPanel {
 		weekSelectFrame.setVisible(true);
 
 	}
-
+	
 	public void setWeekScreenListener(WeekScreenListener listener) {
 
 		this.weekScreenListener = listener;
@@ -446,7 +446,7 @@ public class WeekScreen extends JPanel {
 	private class WeekMainPanel extends JPanel {
 
 		private PatientPanel patientPanel;
-		private JLabel tempLabel;
+		private JLabel fillLabel;
 		private GridBagConstraints c;
 
 		WeekMainPanel() {
@@ -456,7 +456,7 @@ public class WeekScreen extends JPanel {
 			c = new GridBagConstraints();
 
 			patientPanel = new PatientPanel();
-			tempLabel = new JLabel();
+			fillLabel = new JLabel();
 
 			c.fill = GridBagConstraints.BOTH;
 			c.weightx = 1;
@@ -471,7 +471,7 @@ public class WeekScreen extends JPanel {
 			// are added from top to bottom
 
 			// Remove and then add back at the end
-			remove(tempLabel);
+			remove(fillLabel);
 
 			// Set weighty back to default
 			c.weighty = 0;
@@ -481,7 +481,7 @@ public class WeekScreen extends JPanel {
 
 			// Set weighty to 1 so that it fills the remaining space
 			c.weighty = 1;
-			add(tempLabel, c);
+			add(fillLabel, c);
 
 			repaint();
 			revalidate();
