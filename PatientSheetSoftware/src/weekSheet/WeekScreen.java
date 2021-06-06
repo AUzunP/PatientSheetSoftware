@@ -98,7 +98,7 @@ public class WeekScreen extends JPanel {
 		});
 
 		// Wrap main panel in scroll pane and add it instead of adding main panel
-		scrollPane = new JScrollPane(mainPanel, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,
+		scrollPane = new JScrollPane(mainPanel, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS,
 				ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 
 		this.setWeekScreenListener(new WeekScreenListener() {
@@ -313,7 +313,7 @@ public class WeekScreen extends JPanel {
 			Dimension tabDimension = new Dimension(200, 25);
 			Dimension dayDimension = new Dimension(50, 25);
 
-			diagnoses = new JLabel("Diagnoses");
+			diagnoses = new JLabel("Diagnoses", SwingConstants.CENTER);
 			patientName = new JLabel("Patient Name");
 
 			monday = new JLabel("MON", SwingConstants.CENTER);
@@ -335,16 +335,16 @@ public class WeekScreen extends JPanel {
 			saturday.setPreferredSize(dayDimension);
 			sunday.setPreferredSize(dayDimension);
 
-			diagnoses.setBorder(BorderFactory.createEtchedBorder(1));
-			patientName.setBorder(BorderFactory.createEtchedBorder(1));
+//			diagnoses.setBorder(BorderFactory.createEtchedBorder(1));
+//			patientName.setBorder(BorderFactory.createEtchedBorder(1));
 
-			monday.setBorder(BorderFactory.createEtchedBorder(1));
-			tuesday.setBorder(BorderFactory.createEtchedBorder(1));
-			wednesday.setBorder(BorderFactory.createEtchedBorder(1));
-			thursday.setBorder(BorderFactory.createEtchedBorder(1));
-			friday.setBorder(BorderFactory.createEtchedBorder(1));
-			saturday.setBorder(BorderFactory.createEtchedBorder(1));
-			sunday.setBorder(BorderFactory.createEtchedBorder(1));
+//			monday.setBorder(BorderFactory.createEtchedBorder(1));
+//			tuesday.setBorder(BorderFactory.createEtchedBorder(1));
+//			wednesday.setBorder(BorderFactory.createEtchedBorder(1));
+//			thursday.setBorder(BorderFactory.createEtchedBorder(1));
+//			friday.setBorder(BorderFactory.createEtchedBorder(1));
+//			saturday.setBorder(BorderFactory.createEtchedBorder(1));
+//			sunday.setBorder(BorderFactory.createEtchedBorder(1));
 
 			layoutTopPanel();
 
@@ -363,7 +363,7 @@ public class WeekScreen extends JPanel {
 		}
 
 		private void layoutTopPanel() {
-
+			
 			GridBagConstraints c = new GridBagConstraints();
 
 			c.fill = GridBagConstraints.HORIZONTAL;
@@ -431,14 +431,14 @@ public class WeekScreen extends JPanel {
 
 			add(sunday, c);
 
-			c.weightx = 0.3;
+			c.weightx = 0.33;
 			c.gridwidth = 1;
 			c.gridheight = 1;
 			c.gridx = 8;
 			c.gridy = 0;
 
 			add(diagnoses, c);
-
+			
 		}
 
 	}
