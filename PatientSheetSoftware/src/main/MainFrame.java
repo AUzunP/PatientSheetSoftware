@@ -1,6 +1,7 @@
 package main;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 
 import javax.swing.JFrame;
@@ -8,6 +9,7 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
+import customComponents.CustomMenuBar;
 import weekSheet.WeekScreen;
 import weekSheet.WeekSheet;
 
@@ -40,7 +42,6 @@ public class MainFrame extends JFrame{
 		setVisible(true);
 		
 //		ArrayList<DayNote> testPatientnotes = new ArrayList<DayNote>();
-//		
 //		ArrayList<String> testPatientDiagnoses = new ArrayList<String>();
 //		testPatientDiagnoses.add("hypertension");
 //		testPatientDiagnoses.add("hyperlipidemia");
@@ -86,7 +87,7 @@ public class MainFrame extends JFrame{
 	
 	private JMenuBar createMenuBar() {
 		
-		JMenuBar menuBar = new JMenuBar();
+		CustomMenuBar menuBar = new CustomMenuBar();
 		
 		JMenu fileMenu = new JMenu("File");
 		JMenuItem exportDataItem = new JMenuItem("Export Data...");
