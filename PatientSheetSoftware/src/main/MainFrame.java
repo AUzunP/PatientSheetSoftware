@@ -2,26 +2,26 @@ package main;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.util.ArrayList;
 
 import javax.swing.JFrame;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 
-import patient.DayNote;
-import patient.Patient;
-import settings.SettingsPanel;
 import weekSheet.WeekScreen;
 import weekSheet.WeekSheet;
 
 public class MainFrame extends JFrame{
 
 	WeekScreen weekScreen;
-	SettingsPanel settingsPanel;
 	
 	public MainFrame() {
 		
 		super("Patient Sheet Software");
 		
 		setLayout(new BorderLayout());
+		
+		setJMenuBar(createMenuBar());
 		
 		// (x, y)
 		setMinimumSize(new Dimension(1000, 1000));
@@ -33,10 +33,8 @@ public class MainFrame extends JFrame{
 		this.repaint();
 		this.setLocationRelativeTo(null);
 		
-		settingsPanel = new SettingsPanel();
 		weekScreen = new WeekScreen();
 
-		add(settingsPanel, BorderLayout.NORTH);
 		add(weekScreen, BorderLayout.CENTER);
 		
 		setVisible(true);
@@ -83,6 +81,32 @@ public class MainFrame extends JFrame{
 //			
 //			System.out.println(test[0] + " " + test[1] + " " + test[2] + " " + test[3] + " " + test[4] + " " + test[5] + " " + test[6]);			
 //		}
+		
+	}
+	
+	private JMenuBar createMenuBar() {
+		
+		JMenuBar menuBar = new JMenuBar();
+		
+		JMenu fileMenu = new JMenu("File");
+		JMenuItem exportDataItem = new JMenuItem("Export Data...");
+		JMenuItem importDataItem = new JMenuItem("Import Data...");
+		JMenuItem exitItem = new JMenuItem("Exit");
+		
+		fileMenu.add(exportDataItem);
+		fileMenu.add(importDataItem);
+		fileMenu.addSeparator();
+		fileMenu.add(exitItem);
+		
+		JMenu settingsMenu = new JMenu("Settings");
+		JMenuItem tempSetting = new JMenuItem("Temp Setting...");
+		
+		settingsMenu.add(tempSetting);
+		
+		menuBar.add(fileMenu);
+		menuBar.add(settingsMenu);
+		
+		return menuBar;
 		
 	}
 	

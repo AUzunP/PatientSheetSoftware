@@ -44,8 +44,6 @@ public class WeekScreen extends JPanel {
 	private int[] weeksLabel;
 	private int year = Calendar.getInstance().get(Calendar.YEAR);
 
-	// TODO Add top line for file and settings drop down menu that has
-	// Import and export options as well as save, etc.
 	public WeekScreen() {
 
 		// Must change layout to accommodate for fourth line
