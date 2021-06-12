@@ -312,7 +312,7 @@ public class WeekScreen extends JPanel {
 			Dimension dayDimension = new Dimension(50, 25);
 
 			diagnoses = new JLabel("Diagnoses", SwingConstants.CENTER);
-			patientName = new JLabel("Patient Name");
+			patientName = new JLabel("Patient Name", SwingConstants.CENTER);
 
 			monday = new JLabel("MON", SwingConstants.CENTER);
 			tuesday = new JLabel("TUE", SwingConstants.CENTER);
@@ -332,6 +332,17 @@ public class WeekScreen extends JPanel {
 			friday.setPreferredSize(dayDimension);
 			saturday.setPreferredSize(dayDimension);
 			sunday.setPreferredSize(dayDimension);
+			
+			diagnoses.setMinimumSize(tabDimension);
+			patientName.setMinimumSize(tabDimension);
+
+			monday.setMinimumSize(dayDimension);
+			tuesday.setMinimumSize(dayDimension);
+			wednesday.setMinimumSize(dayDimension);
+			thursday.setMinimumSize(dayDimension);
+			friday.setMinimumSize(dayDimension);
+			saturday.setMinimumSize(dayDimension);
+			sunday.setMinimumSize(dayDimension);
 
 //			diagnoses.setBorder(BorderFactory.createEtchedBorder(1));
 //			patientName.setBorder(BorderFactory.createEtchedBorder(1));

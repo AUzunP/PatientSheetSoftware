@@ -37,6 +37,9 @@ public class PatientPanel extends JPanel{
 		
 		setLayout(new GridBagLayout());
 		
+		Dimension tabDimension = new Dimension(200, 25);
+		Dimension dayDimension = new Dimension(50, 25);
+		
 		diagnoses = new CustomButton();
 		patientName = new JTextField();
 		
@@ -56,16 +59,29 @@ public class PatientPanel extends JPanel{
 		saturdayNote.setHorizontalAlignment(JTextField.CENTER);
 		sundayNote.setHorizontalAlignment(JTextField.CENTER);
 		
-		diagnoses.setPreferredSize(new Dimension(200, 25));
-		patientName.setPreferredSize(new Dimension(200, 25));
+		// What a mess this stuff is VVVV
 		
-		mondayNote.setPreferredSize(new Dimension(50, 25));
-		tuesdayNote.setPreferredSize(new Dimension(50, 25));
-		wednesdayNote.setPreferredSize(new Dimension(50, 25));
-		thursdayNote.setPreferredSize(new Dimension(50, 25));
-		fridayNote.setPreferredSize(new Dimension(50, 25));
-		saturdayNote.setPreferredSize(new Dimension(50, 25));
-		sundayNote.setPreferredSize(new Dimension(50, 25));
+		diagnoses.setPreferredSize(tabDimension);
+		patientName.setPreferredSize(tabDimension);
+		
+		mondayNote.setPreferredSize(dayDimension);
+		tuesdayNote.setPreferredSize(dayDimension);
+		wednesdayNote.setPreferredSize(dayDimension);
+		thursdayNote.setPreferredSize(dayDimension);
+		fridayNote.setPreferredSize(dayDimension);
+		saturdayNote.setPreferredSize(dayDimension);
+		sundayNote.setPreferredSize(dayDimension);
+		
+		diagnoses.setMinimumSize(tabDimension);
+		patientName.setMinimumSize(tabDimension);
+		
+		mondayNote.setMinimumSize(dayDimension);
+		tuesdayNote.setMinimumSize(dayDimension);
+		wednesdayNote.setMinimumSize(dayDimension);
+		thursdayNote.setMinimumSize(dayDimension);
+		fridayNote.setMinimumSize(dayDimension);
+		saturdayNote.setMinimumSize(dayDimension);
+		sundayNote.setMinimumSize(dayDimension);
 		
 		diagnoses.setBorder(BorderFactory.createEtchedBorder(1));		
 		patientName.setBorder(BorderFactory.createEtchedBorder(1));
@@ -196,7 +212,7 @@ public class PatientPanel extends JPanel{
 		
 		add(sundayNote, c);
 		
-		c.weightx = 0.3;
+		c.weightx = 0.33;
 		c.gridwidth = 1;
 		c.gridheight = 1;
 		c.gridx = 8;
