@@ -31,7 +31,7 @@ public class PatientPanel extends JPanel{
 	
 	// Components for diagnosesFrame
 	
-	private JFrame diagnosesFrame;
+	private DiagnosesFrame diagnosesFrame;
 	
 	public PatientPanel() {
 		
@@ -108,40 +108,53 @@ public class PatientPanel extends JPanel{
 	
 	private void createDiagnosesFrame() {
 		
-		diagnosesFrame = new JFrame("Diagnoses for " + this.patientName.getText());
+		diagnosesFrame = new DiagnosesFrame(this.patientName.getText());
 		
-		diagnosesFrame.setLayout(new GridBagLayout());
-		GridBagConstraints c = new GridBagConstraints();
-		
-		Dimension d = new Dimension(400, 400);
-		diagnosesFrame.setPreferredSize(d);
-		diagnosesFrame.setMinimumSize(d);
-		//diagnosesFrame.setResizable(false);
-		diagnosesFrame.setLayout(new GridBagLayout());
-		diagnosesFrame.pack();
 		diagnosesFrame.setLocationRelativeTo(this);
-		
-		c.gridx = 0;
-		c.gridy = 0;
-		
-		if (!this.patientName.getText().equals("")) {
-			diagnosesFrame.setVisible(true);			
-		}
-		
-		ArrayList<String> templist = new ArrayList<String>();
-		
-		templist.add("htn");
-		templist.add("hypertension");
-		templist.add("high blood pressure");
-		
-		CodeLabel tempLabel = new CodeLabel(new ICDCode("I10", templist));
-		
-		diagnosesFrame.add(tempLabel, c);
+		diagnosesFrame.setVisible(true);
 		
 		repaint();
 		revalidate();
 		
 	}
+	
+//	private void createDiagnosesFrame() {
+//		
+//		diagnosesFrame = new JFrame("Diagnoses for " + this.patientName.getText());
+//		
+//		diagnosesFrame.setLayout(new GridBagLayout());
+//		GridBagConstraints c = new GridBagConstraints();
+//		
+//		Dimension d = new Dimension(400, 400);
+//		diagnosesFrame.setPreferredSize(d);
+//		diagnosesFrame.setMinimumSize(d);
+//		diagnosesFrame.setLayout(new GridBagLayout());
+//		diagnosesFrame.pack();
+//		diagnosesFrame.setLocationRelativeTo(this);
+//				
+//		if (!this.patientName.getText().equals("")) {
+//			diagnosesFrame.setVisible(true);			
+//		}
+//		
+//		ArrayList<String> templist = new ArrayList<String>();
+//		
+//		templist.add("htn");
+//		templist.add("hypertension");
+//		templist.add("high blood pressure");
+//		
+//		CodeLabel tempLabel = new CodeLabel(new ICDCode("I10", templist));
+//		
+//		diagnosesFrame.add(tempLabel, c);
+//
+//		diagnosesFrame.setVisible(true);
+//		
+//		c.gridx = 0;
+//		c.gridy = 0;
+//		
+//		repaint();
+//		revalidate();
+//		
+//	}
 	
 	private void layoutPatientPanel() {
 		
