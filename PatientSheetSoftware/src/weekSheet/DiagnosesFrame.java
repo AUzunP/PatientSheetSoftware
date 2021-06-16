@@ -11,7 +11,7 @@ import customComponents.CustomButton;
 
 public class DiagnosesFrame extends JFrame{
 	
-	private JTextField diagnosesEntry;
+	private JTextField diagnosisEntry;
 	private CustomButton enterButton;
 	
 	public DiagnosesFrame(String patientName) {
@@ -32,21 +32,29 @@ public class DiagnosesFrame extends JFrame{
 	
 	private void layoutComponents(GridBagConstraints c) {
 		
-		diagnosesEntry = new JTextField();
-		enterButton = new CustomButton();
-		
-		diagnosesEntry.setPreferredSize(new Dimension(200, 25));
-		enterButton.setPreferredSize(new Dimension(25, 25));
-	
 		c.gridx = 0;
 		c.gridy = 0;
+
+		addNewDiagnosis(c);
 		
-		c.fill = GridBagConstraints.BOTH;
+		c.gridx = 0;
+		c.gridy++;
 		
-		this.add(diagnosesEntry, c);
+		addNewDiagnosis(c);
 		
-		c.gridx = 1;
-		c.gridy = 0;
+	}
+	
+	private void addNewDiagnosis(GridBagConstraints c) {
+		
+		diagnosisEntry = new JTextField();
+		enterButton = new CustomButton();
+		
+		diagnosisEntry.setPreferredSize(new Dimension(200, 25));
+		enterButton.setPreferredSize(new Dimension(25, 25));
+		
+		this.add(diagnosisEntry, c);
+		
+		c.gridx++;
 		
 		this.add(enterButton, c);
 		
