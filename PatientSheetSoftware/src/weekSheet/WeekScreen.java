@@ -98,7 +98,7 @@ public class WeekScreen extends JPanel {
 		// Wrap main panel in scroll pane and add it instead of adding main panel
 		scrollPane = new JScrollPane(mainPanel, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS,
 				ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-
+		
 		this.setWeekScreenListener(new WeekScreenListener() {
 
 			@Override
@@ -343,17 +343,6 @@ public class WeekScreen extends JPanel {
 			friday.setMinimumSize(dayDimension);
 			saturday.setMinimumSize(dayDimension);
 			sunday.setMinimumSize(dayDimension);
-
-//			diagnoses.setBorder(BorderFactory.createEtchedBorder(1));
-//			patientName.setBorder(BorderFactory.createEtchedBorder(1));
-
-//			monday.setBorder(BorderFactory.createEtchedBorder(1));
-//			tuesday.setBorder(BorderFactory.createEtchedBorder(1));
-//			wednesday.setBorder(BorderFactory.createEtchedBorder(1));
-//			thursday.setBorder(BorderFactory.createEtchedBorder(1));
-//			friday.setBorder(BorderFactory.createEtchedBorder(1));
-//			saturday.setBorder(BorderFactory.createEtchedBorder(1));
-//			sunday.setBorder(BorderFactory.createEtchedBorder(1));
 
 			layoutTopPanel();
 
