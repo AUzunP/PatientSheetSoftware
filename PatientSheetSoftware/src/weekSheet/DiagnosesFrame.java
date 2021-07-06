@@ -5,6 +5,7 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.swing.JFrame;
@@ -13,6 +14,7 @@ import javax.swing.JTextField;
 
 import converter.CodeLabel;
 import converter.ICDCode;
+import converter.ICDDictionary;
 import customComponents.CustomButton;
 
 public class DiagnosesFrame extends JFrame {
@@ -61,6 +63,17 @@ public class DiagnosesFrame extends JFrame {
 				add(diagPanel);
 				repaint();
 				revalidate();
+				
+				try {
+					ICDDictionary.run();
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				
+				ICDDictionary.readList();
+				ICDDictionary.searchListDiagnosis("htn");
+				
 			}
 
 		});
