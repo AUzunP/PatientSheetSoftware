@@ -49,7 +49,7 @@ public class CodeLabel extends JPanel{
 		GridBagConstraints c = new GridBagConstraints();
 		
 		//TEMPORARY
-		scrollPane.setPreferredSize(new Dimension(100, 50));
+		//scrollPane.setPreferredSize(new Dimension(100, 50));
 		//^^^^^^^^^^^^
 		
 		c.gridx = 0;

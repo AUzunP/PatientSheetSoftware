@@ -1,14 +1,15 @@
 package main;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Dimension;
+import java.io.IOException;
 
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
+import converter.ICDDictionary;
 import customComponents.CustomMenuBar;
 import weekSheet.WeekScreen;
 import weekSheet.WeekSheet;
@@ -17,9 +18,11 @@ public class MainFrame extends JFrame{
 
 	WeekScreen weekScreen;
 	
-	public MainFrame() {
+	public MainFrame() throws IOException {
 		
 		super("Patient Sheet Software");
+		
+		ICDDictionary tempDictionary = new ICDDictionary();
 		
 		setLayout(new BorderLayout());
 		

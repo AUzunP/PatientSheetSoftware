@@ -20,7 +20,7 @@ public class ICDDictionary {
 		
 		//Entry should be as follows: I10{Hypertension, HTN, High blood pressure}
 		
-		//System.out.println("Populating list...\n");
+		System.out.println("Populating list...\n");
 		populateList();
 		
 	}
@@ -178,19 +178,19 @@ public class ICDDictionary {
 		
 	}
 	
-//	public ICDCode manipulate(String code) {
-//		//Grab an ICDCode object to manipulate (add/remove diagnosis, etc.)
-//		code = code.toUpperCase();
-//		ICDCode toManipulate = null;
-//		
-//		for (int i = 0; i < codesList.size(); i++) {
-//			
-//			if(codesList.get(i).getCode().toUpperCase().equals(code)) {
-//				toManipulate = codesList.get(i);
-//			}
-//		}
-//		
-//		return toManipulate;
-//	}
+	public static ICDCode returnCodeObject(String code) {
+		//Grab an ICDCode object to manipulate (add/remove diagnosis, etc.)
+		code = code.toUpperCase();
+		ICDCode toReturn = null;
+		
+		for (int i = 0; i < codesList.size(); i++) {
+			
+			if(codesList.get(i).getCode().toUpperCase().equals(code)) {
+				toReturn = codesList.get(i);
+			}
+		}
+		
+		return toReturn;
+	}
 	
 }

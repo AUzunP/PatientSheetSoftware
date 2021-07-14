@@ -1,7 +1,6 @@
 package weekSheet;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -12,7 +11,9 @@ import java.util.ArrayList;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextField;
+import javax.swing.ScrollPaneConstants;
 
 import converter.CodeLabel;
 import converter.ICDCode;
@@ -42,12 +43,16 @@ public class DiagnosesFrame extends JFrame {
 	private CodeLabel codeLabel;
 	private JPanel codeLabelArea;
 	private JPanel diagPanelArea;
+	private JScrollPane codeLabelScrollPane;
 
 	private void layoutComponents(GridBagConstraints c) {
 
 		diagPanelArea = new JPanel();
 		codeLabelArea = new JPanel();
 
+		codeLabelScrollPane = new JScrollPane(codeLabelArea, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS,
+				ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+		
 		c.fill = GridBagConstraints.BOTH;
 		c.weighty = .1;
 		c.weightx = 1;
@@ -57,10 +62,10 @@ public class DiagnosesFrame extends JFrame {
 
 		add(diagPanelArea, c);
 
-		c.weighty = 1;
+		c.weighty = .9;
 		c.gridy++;
 
-		add(codeLabelArea, c);
+		add(codeLabelScrollPane, c);
 
 		// ====================Diagnosis Panel Area===============================\\
 
@@ -80,7 +85,7 @@ public class DiagnosesFrame extends JFrame {
 		ArrayList<String> test = new ArrayList<String>();
 		test.add("htn");
 		test.add("hypertension");
-
+		
 		diagPanel.enterButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -88,7 +93,12 @@ public class DiagnosesFrame extends JFrame {
 				System.out.println("here");
 				codeLabelArea.remove(diagPanel);
 				gc.gridy++;
-				codeLabelArea.add(new CodeLabel(new ICDCode(diagPanel.diagnosisEntry.getText(), test)), gc);
+				
+				String code = ICDDictionary.searchListDiagnosis(diagPanel.diagnosisEntry.getText());
+				
+				ICDCode returnedCode = ICDDictionary.returnCodeObject(code);
+				
+				codeLabelArea.add(new CodeLabel(returnedCode), gc);
 				repaint();
 				revalidate();
 
@@ -107,48 +117,6 @@ public class DiagnosesFrame extends JFrame {
 		});
 
 	}
-
-//	private void layoutComponents(GridBagConstraints c) {
-//
-//		c.gridx = 0;
-//		c.gridy = 0;
-//
-//		diagPanel = new DiagnosisPanel();
-//
-//		add(diagPanel, c);
-//
-//		ArrayList<String> test = new ArrayList<String>();
-//		test.add("htn");
-//		test.add("hypertension");
-//
-//		diagPanel.enterButton.addActionListener(new ActionListener() {
-//
-//			@Override
-//			public void actionPerformed(ActionEvent e) {
-//				// TODO Auto-generated method stub
-//				System.out.println("here");
-//				remove(diagPanel);
-//				c.gridy++;
-//				add(new CodeLabel(new ICDCode(diagPanel.diagnosisEntry.getText(), test)), c);
-//				add(diagPanel);
-//				repaint();
-//				revalidate();
-//				
-//				try {
-//					ICDDictionary.run();
-//				} catch (IOException e1) {
-//					// TODO Auto-generated catch block
-//					e1.printStackTrace();
-//				}
-//				
-//				ICDDictionary.readList();
-//				ICDDictionary.searchListDiagnosis("htn");
-//				
-//			}
-//
-//		});
-//
-//	}
 
 	private class DiagnosisPanel extends JPanel {
 
