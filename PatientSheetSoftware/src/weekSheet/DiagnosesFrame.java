@@ -26,10 +26,11 @@ public class DiagnosesFrame extends JFrame {
 
 		super("Diagnoses for " + patientName);
 
-		Dimension d = new Dimension(400, 400);
+		setResizable(false);
+		
+		Dimension d = new Dimension(300, 500);
 		setPreferredSize(d);
 		setMinimumSize(d);
-//		setLayout(new GridLayout(2, 0));
 		setLayout(new GridBagLayout());
 		pack();
 
@@ -92,6 +93,9 @@ public class DiagnosesFrame extends JFrame {
 				// TODO Auto-generated method stub
 				System.out.println("here");
 				codeLabelArea.remove(diagPanel);
+				
+				gc.fill = GridBagConstraints.BOTH;
+				gc.weightx = 1;
 				gc.gridy++;
 				
 				String code = ICDDictionary.searchListDiagnosis(diagPanel.diagnosisEntry.getText());
