@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
@@ -30,23 +31,19 @@ public class DiagnosesFrame extends JFrame {
 		
 		Dimension d = new Dimension(300, 500);
 		setPreferredSize(d);
-		setMinimumSize(d);
-		setLayout(new GridBagLayout());
+		setLayout(new BorderLayout());
 		pack();
 
-		GridBagConstraints c = new GridBagConstraints();
-
-		layoutComponents(c);
+		layoutComponents();
 
 	}
 
 	private DiagnosisPanel diagPanel;
-	private CodeLabel codeLabel;
 	private JPanel codeLabelArea;
 	private JPanel diagPanelArea;
 	private JScrollPane codeLabelScrollPane;
 
-	private void layoutComponents(GridBagConstraints c) {
+	private void layoutComponents() {
 
 		diagPanelArea = new JPanel();
 		codeLabelArea = new JPanel();
@@ -54,33 +51,19 @@ public class DiagnosesFrame extends JFrame {
 		codeLabelScrollPane = new JScrollPane(codeLabelArea, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS,
 				ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		
-		c.fill = GridBagConstraints.BOTH;
-		c.weighty = .1;
-		c.weightx = 1;
-
-		c.gridx = 0;
-		c.gridy = 0;
-
-		add(diagPanelArea, c);
-
-		c.weighty = .9;
-		c.gridy++;
-
-		add(codeLabelScrollPane, c);
-
 		// ====================Diagnosis Panel Area===============================\\
 
 		diagPanel = new DiagnosisPanel();
 
+		add(diagPanelArea, BorderLayout.NORTH);
+
 		diagPanelArea.setLayout(new BorderLayout());
 		diagPanelArea.add(diagPanel);
-
+		
 		// ===================Code Label Area=================================\\
 
-		// WRAP THIS SHIT IN A SCROLLBAR
-		
 		codeLabelArea.setLayout(new GridBagLayout());
-
+		
 		GridBagConstraints gc = new GridBagConstraints();
 
 		ArrayList<String> test = new ArrayList<String>();
@@ -120,6 +103,8 @@ public class DiagnosesFrame extends JFrame {
 
 		});
 
+		add(codeLabelScrollPane, BorderLayout.CENTER);
+		
 	}
 
 	private class DiagnosisPanel extends JPanel {
@@ -130,7 +115,6 @@ public class DiagnosesFrame extends JFrame {
 		DiagnosisPanel() {
 
 			setLayout(new GridBagLayout());
-			setPreferredSize(new Dimension(225, 25));
 
 			diagnosisEntry = new JTextField();
 			enterButton = new CustomButton();
@@ -147,6 +131,8 @@ public class DiagnosesFrame extends JFrame {
 
 			c.gridx = 1;
 			c.gridy = 0;
+			
+			c.insets = new Insets(15, 0, 15, 0);
 
 			add(enterButton, c);
 
