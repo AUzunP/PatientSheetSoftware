@@ -8,8 +8,8 @@ import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
-import java.util.ArrayList;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -28,7 +28,7 @@ public class DiagnosesFrame extends JFrame {
 		super("Diagnoses for " + patientName);
 
 		setResizable(false);
-		
+
 		Dimension d = new Dimension(300, 500);
 		setPreferredSize(d);
 		setLayout(new BorderLayout());
@@ -39,18 +39,15 @@ public class DiagnosesFrame extends JFrame {
 	}
 
 	private DiagnosisPanel diagPanel;
-	private JPanel codeLabelArea;
+	private CodeLabelPanel codeLabel;
 	private JPanel diagPanelArea;
 	private JScrollPane codeLabelScrollPane;
+	private CustomButton clearButton;
 
 	private void layoutComponents() {
 
 		diagPanelArea = new JPanel();
-		codeLabelArea = new JPanel();
 
-		codeLabelScrollPane = new JScrollPane(codeLabelArea, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS,
-				ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-		
 		// ====================Diagnosis Panel Area===============================\\
 
 		diagPanel = new DiagnosisPanel();
@@ -59,52 +56,72 @@ public class DiagnosesFrame extends JFrame {
 
 		diagPanelArea.setLayout(new BorderLayout());
 		diagPanelArea.add(diagPanel);
-		
+
 		// ===================Code Label Area=================================\\
 
-		codeLabelArea.setLayout(new GridBagLayout());
-		
-		GridBagConstraints gc = new GridBagConstraints();
+		codeLabel = new CodeLabelPanel();
 
-		ArrayList<String> test = new ArrayList<String>();
-		test.add("htn");
-		test.add("hypertension");
-		
-		diagPanel.enterButton.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				System.out.println("here");
-				codeLabelArea.remove(diagPanel);
-				
-				gc.fill = GridBagConstraints.BOTH;
-				gc.weightx = 1;
-				gc.gridy++;
-				
-				String code = ICDDictionary.searchListDiagnosis(diagPanel.diagnosisEntry.getText());
-				
-				ICDCode returnedCode = ICDDictionary.returnCodeObject(code);
-				
-				codeLabelArea.add(new CodeLabel(returnedCode), gc);
-				repaint();
-				revalidate();
-
-				try {
-					ICDDictionary.run();
-				} catch (IOException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-
-				ICDDictionary.readList();
-				ICDDictionary.searchListDiagnosis("htn");
-
-			}
-
-		});
+		codeLabelScrollPane = new JScrollPane(codeLabel, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS,
+				ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
 		add(codeLabelScrollPane, BorderLayout.CENTER);
+
+		// ===================Code Label Area=================================\\
+
+		clearButton = new CustomButton("Clear");
+		add(clearButton, BorderLayout.SOUTH);
 		
+		clearButton.addActionListener(new ActionListener() {
+
+			public void actionPerformed(ActionEvent e) {
+				
+				getContentPane().removeAll();
+				layoutComponents();
+				repaint();
+				revalidate();
+				
+			}
+			
+		});
+
+	}
+
+	private class CodeLabelPanel extends JPanel {
+
+		CodeLabelPanel() {
+
+			setLayout(new GridBagLayout());
+
+			GridBagConstraints gc = new GridBagConstraints();
+
+			diagPanel.enterButton.addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					// TODO Auto-generated method stub
+					remove(diagPanel);
+
+					gc.fill = GridBagConstraints.BOTH;
+					gc.weightx = 1;
+					gc.gridy++;
+
+					String code = ICDDictionary.searchListDiagnosis(diagPanel.diagnosisEntry.getText());
+
+					ICDCode returnedCode = ICDDictionary.returnCodeObject(code);
+
+					add(new CodeLabel(returnedCode), gc);
+
+					ICDDictionary.readList();
+					ICDDictionary.searchListDiagnosis("htn");
+					
+					revalidate();
+					repaint();
+					
+				}
+
+			});
+
+		}
+
 	}
 
 	private class DiagnosisPanel extends JPanel {
@@ -131,7 +148,7 @@ public class DiagnosesFrame extends JFrame {
 
 			c.gridx = 1;
 			c.gridy = 0;
-			
+
 			c.insets = new Insets(15, 0, 15, 0);
 
 			add(enterButton, c);
