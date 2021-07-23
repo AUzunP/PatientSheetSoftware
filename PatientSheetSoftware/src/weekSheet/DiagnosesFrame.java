@@ -7,9 +7,9 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.IOException;
 
-import javax.swing.JButton;
+import javax.swing.AbstractAction;
+import javax.swing.Action;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -93,9 +93,10 @@ public class DiagnosesFrame extends JFrame {
 			setLayout(new GridBagLayout());
 
 			GridBagConstraints gc = new GridBagConstraints();
-
+			
 			diagPanel.enterButton.addActionListener(new ActionListener() {
 				@Override
+				
 				public void actionPerformed(ActionEvent e) {
 					// TODO Auto-generated method stub
 					remove(diagPanel);
@@ -138,7 +139,16 @@ public class DiagnosesFrame extends JFrame {
 
 			diagnosisEntry.setPreferredSize(new Dimension(200, 25));
 			enterButton.setPreferredSize(new Dimension(25, 25));
-
+			
+			//add acitonlistener to text field so when enter key is pressed, simulates button press
+			Action action = new AbstractAction() {
+				public void actionPerformed(ActionEvent e) {
+					enterButton.doClick();
+				}
+			};
+			
+			diagnosisEntry.addActionListener(action);
+			
 			GridBagConstraints c = new GridBagConstraints();
 
 			c.gridx = 0;
