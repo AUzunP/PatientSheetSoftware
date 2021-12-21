@@ -20,7 +20,7 @@ public class ICDCode {
 	}
 
 	
-	//test
+	//test this
 	ICDCode(String entry) {
 		
 		// When building a dictionary from previously entered ICD codes that are entered
