@@ -1,5 +1,7 @@
 package main;
 
+import org.w3c.dom.ls.LSOutput;
+
 import java.io.IOException;
 
 import javax.swing.SwingUtilities;
@@ -7,7 +9,9 @@ import javax.swing.SwingUtilities;
 public class App {
 
 	public static void main(String[] args) {
-		
+
+		System.out.println("Test");
+
 		SwingUtilities.invokeLater(new Runnable() {
 
 			@Override
